@@ -15,10 +15,11 @@ const MarketPlace = () => {
         <>
             {pasantes.map((p) => (
                 <div key={p.id}>
-                    {p.id}
+                    <h1>{p.usuario.nombre}</h1>
+                    <p>{p.especialidad}</p>
+                    <Link to={`/pasantes/${p.id}`}>Ver mas</Link>
                 </div>
             ))}
-            
         </>
     )
 }

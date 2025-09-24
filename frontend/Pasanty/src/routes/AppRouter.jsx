@@ -5,7 +5,8 @@ import LayoutMain from "../layouts/layoutsMain";
 import Home from "../pages/Home"
 import Register from "../pages/Register"
 import Login from "../pages/Login"
-import MarketPlace from "../pages/MarketPlace";                                                  
+import MarketPlace from "../pages/MarketPlace";
+import PasanteDetalles from "../pages/PasanteDetalles";                                             
 
 const AppRouter = () => {
     return(
@@ -15,6 +16,7 @@ const AppRouter = () => {
             <Route element={<LayoutMain/>}>
                 <Route path="/" element={<Home />}/>
                 <Route path="/marketplace" element={<MarketPlace />}/>
+                <Route path="/pasantes/:id" element={<PasanteDetalles />}/>
             </Route>
 
             {/*Sin navbar */}
@@ -23,7 +25,7 @@ const AppRouter = () => {
             <Route path="/login" element={<Login />}/>
 
             {/*Rutas privadas */}
-{/* 
+            {/* 
             <Route element={<ProtectedRoute />}>
                 <Route></Route>
             </Route> */}
