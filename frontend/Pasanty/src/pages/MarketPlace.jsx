@@ -3,11 +3,11 @@ import { getPasantes } from "../api/pasantesApi";
 import { Link } from "react-router-dom";
 
 const MarketPlace = () => {
+    
     const [pasantes, setPasantes] = useState([]);
 
     useEffect(() => {
         getPasantes().then(data => {
-            console.log(data);
             setPasantes(data);});
     }, [])
 
