@@ -7,6 +7,8 @@ import Register from "../pages/Register"
 import Login from "../pages/Login"
 import MarketPlace from "../pages/MarketPlace";
 import PasanteDetalles from "../pages/PasanteDetalles";                                             
+import Vacantes from "../pages/Vacantes";
+import VacantesDetalles from "../pages/VacantesDetalles";
 
 const AppRouter = () => {
     return(
@@ -17,6 +19,8 @@ const AppRouter = () => {
                 <Route path="/" element={<Home />}/>
                 <Route path="/marketplace" element={<MarketPlace />}/>
                 <Route path="/pasantes/:id" element={<PasanteDetalles />}/>
+                <Route path="/vacantes" element={<Vacantes />}/>
+                <Route path="/vacantes/:id" element={<VacantesDetalles />} />
             </Route>
 
             {/*Sin navbar */}
