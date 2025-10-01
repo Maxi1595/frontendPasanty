@@ -25,5 +25,3 @@ const MarketPlace = () => {
 }
 
 export default MarketPlace
-
-//  Bueno, volviendo al tema del backend contigo tengo que hacer algo o mejor dicho ... tenemos... ya logre hacer que se conecte el front con el back con una api, ahora falta nomas hacer que al darle los datos del pasante tambien 
