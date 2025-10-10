@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 const Navbar = () => {
 
     const [usuario, setUsuario] = useState({});
-    
+
     const { logout } = useAuth();
 
     useEffect(() => {
@@ -32,8 +32,8 @@ const Navbar = () => {
                 <h1 className="text-white text-4xl font-bold uppercase">PASANTY</h1>
             </div>
             <div className="flex gap-40 text-white text-gl">
-                <div className="relative group">
-                    <a href="#">CV</a>
+                <a href="/marketplace">Pasantes</a>
+                {/* <div className="relative group">
                     <ul className="absolute left-0 hidden group-hover:block z-1 bg-green-600/50 text-black border border-green-800 rounded py-2 px-3">
                         <li className="py-1">
                             <a href="#">Tecnologia</a>
@@ -54,9 +54,15 @@ const Navbar = () => {
                             <a href="#">Educacion y Sociales</a>
                         </li>
                     </ul>
-                </div>
-                <a href="#">Empresas</a>
-                <a href="#">Guias</a>
+                </div> */}
+                <a href="/vacantes">Vacantes</a>
+                {usuario.rol === 5 ? (
+                    <a href="/postulaciones">Postulaciones</a>
+                ) : usuario.rol === 3 ? (
+                    <a href="#">Tus postulaciones</a>
+                ) : null
+                }
+                {/* <a href="#">Guias</a> */}
             </div>
             {usuario.username === "invitado" ? (
                 <div className="text-white border-3 border-white rounded-2xl bg-green-400 hover:text-black hover:bg-white hover:border-green-600 duration-300 transition-colors py-2 px-3">

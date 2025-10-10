@@ -16,10 +16,10 @@ const ProtectedRoute = ({ allowedRoles }) => {
     const { user, isAuthenticated } = useAuth();
 
     const allowed = allowedRoles.map(Number);
-    console.log(allowedRoles);
-    console.log(JSON.stringify(localStorage.getItem("user")));
-    console.log(user);
-    console.log(isAuthenticated)
+    // console.log(allowedRoles);
+    // console.log(JSON.stringify(localStorage.getItem("user")));
+    // console.log(user);
+    // console.log(isAuthenticated)
 
     // JSON.parse(localStorage.getItem("user"))
     // localStorage.getItem("token")

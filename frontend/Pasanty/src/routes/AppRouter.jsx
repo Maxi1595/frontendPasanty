@@ -5,11 +5,13 @@ import LayoutMain from "../layouts/layoutsMain";
 
 import Home from "../pages/Home"
 import Register from "../pages/Register"
-import Login from "../pages/login"
+import Login from "../pages/Login"
 import MarketPlace from "../pages/MarketPlace";
 import PasanteDetalles from "../pages/PasanteDetalles";
 import Vacantes from "../pages/Vacantes";
 import VacantesDetalles from "../pages/VacantesDetalles";
+import Postulaciones from "../pages/Postulaciones";
+import PostulanteDetalles from "../pages/PostulanteDetalles";
 
 const AppRouter = () => {
     return (
@@ -24,6 +26,7 @@ const AppRouter = () => {
                     <Route path="/pasantes/:id" element={<PasanteDetalles />} />
                     <Route path="/vacantes" element={<Vacantes />} />
                     <Route path="/vacantes/:id" element={<VacantesDetalles />} />
+                    <Route path="/postulante/:id" element={<PostulanteDetalles />}/>
                 </Route>
 
                 {/*Sin navbar */}
@@ -32,13 +35,21 @@ const AppRouter = () => {
                 <Route path="/login" element={<Login />} />
 
                 {/*Rutas privadas para empresas */}
+                
                 <Route element={<LayoutMain />}>
                     <Route element={<ProtectedRoute allowedRoles={["5"]} />}>
-                        {/* <Route path="/" element={<Home />} /> */}
-                        {/* <Route path="/marketplace" element={<MarketPlace />} /> */}
-                    </Route>
+                        <Route path="/postulaciones" element={<Postulaciones />} />
+                    </Route>        
                 </Route>
 
+                {/* Rutas privadas para pasantes */}
+
+                <Route element={<LayoutMain />}>
+                    <Route element={<ProtectedRoute allowedRoles={["3"]}/>}>
+                        <Route path="/tusPostulaciones" element={<Postulaciones />}/>
+                    </Route>
+                </Route>
+            
             </Routes>
         </AuthProvider>
     )
