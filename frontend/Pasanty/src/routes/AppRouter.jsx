@@ -12,6 +12,7 @@ import Vacantes from "../pages/Vacantes";
 import VacantesDetalles from "../pages/VacantesDetalles";
 import Postulaciones from "../pages/Postulaciones";
 import PostulanteDetalles from "../pages/PostulanteDetalles";
+import Perfil from "../pages/Perfil";
 
 const AppRouter = () => {
     return (
@@ -27,6 +28,7 @@ const AppRouter = () => {
                     <Route path="/vacantes" element={<Vacantes />} />
                     <Route path="/vacantes/:id" element={<VacantesDetalles />} />
                     <Route path="/postulante/:id" element={<PostulanteDetalles />}/>
+                    <Route path="/perfil" element={<Perfil />}/>
                 </Route>
 
                 {/*Sin navbar */}
