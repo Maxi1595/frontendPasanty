@@ -26,4 +26,4 @@ const PasanteDetalles = () => {
     )
 }
 
-export default PasanteDetalles
+export default PasanteDetalles;

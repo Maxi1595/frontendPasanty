@@ -1,8 +1,8 @@
 const UrlApi = "http://localhost:3000/api/postulantes";
+const token = localStorage.getItem("token");
 
 export const getPostulaciones = async () => {
     try{
-        const token = localStorage.getItem("token");
         const res = await fetch(`${UrlApi}/verPorVacante`, {
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -16,7 +16,6 @@ export const getPostulaciones = async () => {
 
 export const getPostulacionById = async (id) =>{
     try{
-        const token = localStorage.getItem("token");
         const res = await fetch(`${UrlApi}/buscarPorId/${id}`, {
             method: "GET",
             headers:{
@@ -31,7 +30,6 @@ export const getPostulacionById = async (id) =>{
 
 export const postPostularse = async (id) => {
     try {
-        const token = localStorage.getItem("token");
         if (token) {
             const res = await fetch(`${UrlApi}/postularse/${id}`, {
                 method: "POST",
@@ -49,7 +47,6 @@ export const postPostularse = async (id) => {
 
 export const patchEstado = async (id, datos) => {
     try{
-        const token = localStorage.getItem("token");
         const res = await fetch(`${UrlApi}/cambiarEstado/${id}`, {
             method: "PATCH",
             headers: {
@@ -58,6 +55,19 @@ export const patchEstado = async (id, datos) => {
             },
             body: JSON.stringify(datos)
         })
+    }catch(error){
+        return { error: error.message };
+    }
+}
+
+export const getEstado = async () => {
+    try{
+        const res = await fetch(`${UrlApi}/verEstado`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return res.json();
     }catch(error){
         return { error: error.message };
     }

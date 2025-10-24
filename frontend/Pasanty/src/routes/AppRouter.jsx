@@ -13,6 +13,7 @@ import VacantesDetalles from "../pages/VacantesDetalles";
 import Postulaciones from "../pages/Postulaciones";
 import PostulanteDetalles from "../pages/PostulanteDetalles";
 import Perfil from "../pages/Perfil";
+import Estado from "../pages/Estado";
 
 const AppRouter = () => {
     return (
@@ -49,6 +50,7 @@ const AppRouter = () => {
                 <Route element={<LayoutMain />}>
                     <Route element={<ProtectedRoute allowedRoles={["3"]}/>}>
                         <Route path="/tusPostulaciones" element={<Postulaciones />}/>
+                        <Route path="/tusEstados" element={<Estado />}/>
                     </Route>
                 </Route>
             
