@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import logo from "../assets/logo.png";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 const Navbar = () => {
 
     const [usuario, setUsuario] = useState({});
-
+    const navigate = useNavigate();
     const { logout } = useAuth();
 
     useEffect(() => {
@@ -19,7 +19,8 @@ const Navbar = () => {
 
     const handleSubmit = async (e) => {
         logout();
-        // window.location.reload();
+        window.location.reload();
+        navigate("/");
     }
 
     return (
@@ -29,7 +30,7 @@ const Navbar = () => {
                     className="w-12 h-12 rounded-full"
                     src={logo}
                     alt="Logo" />
-                <h1 className="text-white text-4xl font-bold uppercase">PASANTY</h1>
+                <Link to="/" className="text-white text-4xl font-bold uppercase">PASANTY</Link>
             </div>
             <div className="flex gap-40 text-white text-gl">
                 <a href="/marketplace">Pasantes</a>
@@ -59,14 +60,19 @@ const Navbar = () => {
                 {usuario.rol === 5 ? (
                     <a href="/postulaciones">Postulaciones</a>
                 ) : usuario.rol === 3 ? (
-                    <a href="#">Tus postulaciones</a>
+                    <a href="/tusEstados">Tus postulaciones</a>
                 ) : null
                 }
                 {/* <a href="#">Guias</a> */}
             </div>
             {usuario.username === "invitado" ? (
-                <div className="text-white border-3 border-white rounded-2xl bg-green-400 hover:text-black hover:bg-white hover:border-green-600 duration-300 transition-colors py-2 px-3">
-                    <a href="/login">Iniciar sesion</a>
+                <div className="flex flex row gap-x-[5px]">
+                    <div className="text-white border-3 border-white rounded-2xl bg-green-400 hover:text-black hover:bg-white hover:border-green-600 duration-300 transition-colors py-2 px-3">
+                        <a href="/login">Iniciar sesion</a>
+                    </div>
+                    <div className="text-white border-3 border-white rounded-2xl bg-green-400 hover:text-black hover:bg-white hover:border-green-600 duration-300 transition-colors py-2 px-3">
+                        <a href="/register">Registrarse</a>
+                    </div>
                 </div>
             ) : usuario ? (
                 <div>

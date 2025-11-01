@@ -49,7 +49,7 @@ const AppRouter = () => {
 
                 <Route element={<LayoutMain />}>
                     <Route element={<ProtectedRoute allowedRoles={["3"]}/>}>
-                        <Route path="/tusPostulaciones" element={<Postulaciones />}/>
+                        {/* <Route path="/tusPostulaciones" element={<Postulaciones />}/> */}
                         <Route path="/tusEstados" element={<Estado />}/>
                     </Route>
                 </Route>

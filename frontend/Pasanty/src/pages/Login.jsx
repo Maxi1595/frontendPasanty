@@ -35,27 +35,29 @@ const Login = () => {
 
     return (
         <>
-            <Box>
-                <form onSubmit={handleSubmit}>
-                    <FormControl>
-                        <Typography>Inicio de sesion</Typography>
-                        <TextField
-                            id="email"
-                            name="email"
-                            label="Email"
-                            type="email"
-                            onChange={(e) => setCorreo(e.target.value)}
-                        />
-                        <TextField
-                            id="contrasena"
-                            name="contrasena"
-                            label="Contraseña"
-                            type="password"
-                            onChange={(e) => setContraseña(e.target.value)}
-                        />
-                        <Button type="submit">Iniciar sesion</Button>
-                    </FormControl>
-                </form>
+            <Box className="inset-0 flex items-center justify-center w-full h-screen">
+                <Box className=" flex justify-center items-center rounded border p-10 w-lg h-[512px]">
+                    <form onSubmit={handleSubmit}>
+                        <FormControl className="flex justify-evenly text-center w-sm h-[384px]">
+                            <Typography className="text-xl font-bold">Inicio de sesion</Typography>
+                            <TextField
+                                id="email"
+                                name="email"
+                                label="Email"
+                                type="email"
+                                onChange={(e) => setCorreo(e.target.value)}
+                            />
+                            <TextField
+                                id="contrasena"
+                                name="contrasena"
+                                label="Contraseña"
+                                type="password"
+                                onChange={(e) => setContraseña(e.target.value)}
+                            />
+                            <Button type="submit">Iniciar sesion</Button>
+                        </FormControl>
+                    </form>
+                </Box>
             </Box>
         </>
     )

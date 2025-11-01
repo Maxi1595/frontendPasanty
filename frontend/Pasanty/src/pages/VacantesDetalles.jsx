@@ -29,11 +29,12 @@ const VacantesDetalles = () => {
 
     return (
         <>
-            <div>
+            <div className="flex flex-col justify-center items-center">
                 {vacante && (
                     <div key={vacante.id}>
-                        <h3>{vacante.titulo}</h3>
-                        <p>{vacante.descripcion}</p>
+                        <h3 className="text-2xl">{vacante.titulo}</h3>
+                        <p>{vacante.estado}</p>
+                        <p className="m-2 p-4">{vacante.descripcion}</p>
                     </div>
                 )}
                 <Button onClick={handleSubmit}>Postularse</Button>
