@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
-import { getCV } from "../api/pasantesApi";
-import { useParams } from "react-router-dom";
+import { getMyCV } from "../api/pasantesApi";
 
-const ViewCV = () => {
 
-  const { id } = useParams();
+const MyCV = () => {
+
   const [cvUrl, setCvUrl] = useState(null);
 
   useEffect(() => {
     const fetchCV = async () => {
-      const url = await getCV(id); // tu función del fetch
+      const url = await getMyCV(); // tu función del fetch
       setCvUrl(url);
     };
     fetchCV();
@@ -17,7 +16,7 @@ const ViewCV = () => {
 
   return (
     <>
-      {cvUrl && (
+      {cvUrl !== null ? (
         <object 
         data={cvUrl} 
         type="application/pdf" 
@@ -25,9 +24,11 @@ const ViewCV = () => {
         height="100%"
         >
         </object>
+      ) : (
+        <p>El pasante no ha subido su CV</p>
       )}
     </>
   );
 };
 
-export default ViewCV;
+export default MyCV;

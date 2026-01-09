@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getUsuario } from "../api/usuarioApi";
 import { Button } from "@mui/material";
 import { postSubirCV } from "../api/pasantesApi";
+import MyCV from '../components/MyCV';
 
 const Perfil = () => {
 
@@ -33,6 +34,8 @@ const Perfil = () => {
 
             {rol.rol === 3 && (
                 <>
+                
+                    <MyCV />
                     <input type="file" onChange={(e)=>setArchivo(e.target.files[0])} />
                     <Button onClick={handleUpload}>insertar CV</Button>
                 </>

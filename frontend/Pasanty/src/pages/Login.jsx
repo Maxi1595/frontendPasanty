@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [correo, setCorreo] = useState("");
-    const [contraseña, setContraseña] = useState("");
+    const [contrasena, setContrasena] = useState("");
     const navegate = useNavigate();
 
     const { loginAuth } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const datos = { correo, contraseña }
+        const datos = { correo, contrasena }
         try {
             const resultado = await loginApi(datos);
             if (resultado.user && resultado.token) {
@@ -52,7 +52,7 @@ const Login = () => {
                                 name="contrasena"
                                 label="Contraseña"
                                 type="password"
-                                onChange={(e) => setContraseña(e.target.value)}
+                                onChange={(e) => setContrasena(e.target.value)}
                             />
                             <Button type="submit">Iniciar sesion</Button>
                         </FormControl>

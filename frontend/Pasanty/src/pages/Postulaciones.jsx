@@ -30,7 +30,7 @@ const Postulaciones = () => {
                 </Box>
 
             {postulantes.map((p) => (
-                <div className="flex flex-row justify-between border" key={p.id}>
+                <div className="flex flex-row justify-between border text-aling-center" key={p.id}>
                     <h3>{p.pasante?.usuario?.nombre}</h3>
                     <p>{p.vacante.titulo}</p>
                     <Link className="text-blue-500" to={`/postulante/${p.id}`}>Ver mas</Link>

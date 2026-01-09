@@ -33,21 +33,37 @@ export const postSubirCV = async (archivo) => {
     }
 }
 
-export const getCV = async () => {
+export const getCV = async (id) => {
     try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch(`${UrlApi}/cv`, {
+        const res = await fetch(`${UrlApi}/cv/${id}`, {
             headers: {
+                "Content-Type": "application/json",
                 'Authorization': `Bearer ${token}`
             }
         })
-        // Convertimos a blob
         const blob = await res.blob();
 
-        // Creamos una URL temporal para el PDF
         return URL.createObjectURL(blob);
     } catch (error) {
+        return { error: error.message };
+    }
+}
+
+export const getMyCV = async () => {
+    try{
+        const token = localStorage.getItem("token");
+
+        const res = await fetch (`${UrlApi}/propio-cv`, {
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const blob = await res.blob();
+
+        return URL.createObjectURL(blob);
+    }catch(error){
         return { error: error.message };
     }
 }

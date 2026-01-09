@@ -14,7 +14,7 @@ export const registroApi = async (tipo, datos) => {
         }
         return res.json();
     }catch (error){
-        return res.json(error);
+        return { error: error.message };
     }
 }
 
@@ -28,6 +28,6 @@ export const loginApi = async (logearse) => {
         return res.json();
     }
     catch (error) {
-        return res.json(error);
+        return { error: error.message };
     }
 }

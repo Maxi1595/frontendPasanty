@@ -34,7 +34,7 @@ const Estado = () => {
                                     : "bg-white"
                             }`} key={p.id}>
                             <p>{p.vacante.titulo}</p>
-                            <p>{p.vacante.descripcion}</p>
+                            <p className="w-92 line-clamp-2">{p.vacante.descripcion}</p>
                             <p>{p.estado}</p>
                         </Box>
                     ))}

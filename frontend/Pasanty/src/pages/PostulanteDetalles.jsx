@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Button } from "@mui/material";
 import { getPostulacionById, patchEstado } from "../api/postularseApi";
-import ViewCV from "../components/ViewCV"
+import { useNavigate } from "react-router-dom";
+import ViewCVPostulante from "../components/ViewCVPostulante";
 
 const PostulanteDetalles = () => {
 
     const { id } = useParams();
     const [postulacion, setPostulacion] = useState(null);
     const [estado, setEstado] = useState({});
+    const navegate = useNavigate();
 
     useEffect(() => {
         getPostulacionById(id).then(data => {
@@ -21,6 +23,7 @@ const PostulanteDetalles = () => {
         setEstado(nuevoEstado);
         console.log(nuevoEstado);
         patchEstado(id, nuevoEstado);
+        navegate("/postulaciones")
     }
 
     return (
@@ -34,7 +37,7 @@ const PostulanteDetalles = () => {
                             <p>{postulacion.pasante.especialidad}</p>
                         </Box>
                         <Box className="w-[60%] h-92">
-                            <ViewCV />
+                            <ViewCVPostulante />
                         </Box>
                     </Box>
                     <Box className="flex w-full justify-center my-10">

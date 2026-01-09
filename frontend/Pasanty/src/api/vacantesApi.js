@@ -20,12 +20,12 @@ export const postVacante = async (datos) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Brearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(datos)
         });
         return res.json();
     } catch (error) {
-        return res.json(error);
+        return { error: true, message: error.message };
     }
 }

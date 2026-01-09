@@ -72,3 +72,20 @@ export const getEstado = async () => {
         return { error: error.message };
     }
 }
+
+export const getCVByPostulacion = async (id) => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const res = await fetch(`${UrlApi}/cv/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const blob = await res.blob();
+
+        return URL.createObjectURL(blob);
+    } catch (error) {
+        return { error: error.message };
+    }
+}

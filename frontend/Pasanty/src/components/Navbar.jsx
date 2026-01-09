@@ -76,7 +76,7 @@ const Navbar = () => {
                 </div>
             ) : usuario ? (
                 <div>
-                    <p>{usuario.username}</p>
+                    <Link to="/perfil" className="text-white">{usuario.username}</Link>
                     <Button onClick={handleSubmit}>Cerrar Sesion</Button>
                 </div>
             ) : null
