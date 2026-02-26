@@ -8,8 +8,8 @@ const Estado = () => {
 
     useEffect(() => {
         getEstado().then(data => {
-            setPostulaciones(data);
-            console.log(data);
+            setPostulaciones(data.data);
+            console.log(data.data);
         })
     }, [])
 

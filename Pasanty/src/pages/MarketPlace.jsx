@@ -27,8 +27,9 @@ const MarketPlace = () => {
     })
 
     useEffect(() => {
-        getPasantes().then(data => {
-            setPasantes(data);
+        getPasantes().then(req => {
+            setPasantes(req?.data);
+            console.log(req?.data)
         });
 
         setCurrentPage(1);
@@ -41,7 +42,7 @@ const MarketPlace = () => {
 
     const totalPages = Math.ceil(pasantesFiltro.length / itemsPerPage);
 
-
+console.log(pasantes)
 
     return (
         <>

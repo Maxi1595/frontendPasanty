@@ -1,16 +1,28 @@
+import instance from "./api";
+
 const UrlApi = "http://localhost:3000/api/pasantes"
 
+// export const getPasantes = async () => {
+//     const res = await fetch(`${UrlApi}/buscar`);
+//     return res.json();
+// };
+
 export const getPasantes = async () => {
-    const res = await fetch(`${UrlApi}/buscar`);
-    return res.json();
-};
+    const resultado = instance.get("pasantes/buscar");
+    return resultado;
+}
+
+// export const getPasanteById = async (id) => {
+//     const res = await fetch(`${UrlApi}/buscar/${id}`);
+//     if (!res.ok) {
+//         throw new Error("Error al traer el pasante");
+//     }
+//     return res.json();
+// }
 
 export const getPasanteById = async (id) => {
-    const res = await fetch(`${UrlApi}/buscar/${id}`);
-    if (!res.ok) {
-        throw new Error("Error al traer el pasante");
-    }
-    return res.json();
+    const resultado = await instance.get(`/pasantes/buscar/${id}`);
+    return resultado?.data;
 }
 
 export const postSubirCV = async (archivo) => {
