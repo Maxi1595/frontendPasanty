@@ -26,7 +26,7 @@ const Estado = () => {
                         <p>Descripcion</p>
                         <p>Estado</p>
                     </Box>
-                    {postulaciones.map((p) => (
+                    {postulaciones?.map((p) => (
                         <Box className={`flex flex-row justify-between px-2 py-1 border-b ${p.estado === "Aceptado"
                                 ? "bg-green-200"
                                 : p.estado === "Rechazado"

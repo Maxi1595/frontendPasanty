@@ -57,15 +57,15 @@ const Navbar = () => {
                     </ul>
                 </div> */}
                 <a href="/vacantes">Vacantes</a>
-                {usuario.rol === 5 ? (
+                {usuario?.user?.rol === 5 ? (
                     <a href="/postulaciones">Postulaciones</a>
-                ) : usuario.rol === 3 ? (
+                ) : usuario?.user?.rol === 3 ? (
                     <a href="/tusEstados">Tus postulaciones</a>
                 ) : null
                 }
                 {/* <a href="#">Guias</a> */}
             </div>
-            {usuario.username === "invitado" ? (
+            {usuario?.user?.username === "invitado" ? (
                 <div className="flex flex row gap-x-[5px]">
                     <div className="text-white border-3 border-white rounded-2xl bg-green-400 hover:text-black hover:bg-white hover:border-green-600 duration-300 transition-colors py-2 px-3">
                         <a href="/login">Iniciar sesion</a>
@@ -76,12 +76,13 @@ const Navbar = () => {
                 </div>
             ) : usuario ? (
                 <div>
-                    <Link to="/perfil" className="text-white">{usuario.username}</Link>
+                    <Link to="/perfil" className="text-white">{usuario?.user?.username}</Link>
                     <Button onClick={handleSubmit}>Cerrar Sesion</Button>
                 </div>
             ) : null
             }
         </nav>
+
     )
 }
 

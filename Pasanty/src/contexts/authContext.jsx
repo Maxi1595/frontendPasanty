@@ -9,14 +9,17 @@ export const AuthProvider = ({ children }) => {
     return !!localStorage.getItem("token");
   });
   const invitado = {
-    username: "invitado",
-    rol: 1
+    user: {
+      username: "invitado",
+      rol: 1
+    },
+    tokenAccess: null,
+    tokenRefresh: null
   };
 
   // Al cargar la app, revisamos si hay token guardado
   useEffect(() => {
-    tokenExpirado();
-    const token = localStorage.getItem("token");
+    //tokenExpirado();
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (!storedUser || storedUser === "") {
       localStorage.setItem("user", JSON.stringify(invitado));
@@ -24,39 +27,38 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       return;
     }
-    if (token && storedUser) {
+    if (storedUser) {
       setUser(storedUser);
       setIsAuthenticated(true);
     }
   }, []);
 
-  const tokenExpirado = () => {
-    const token = localStorage.getItem("token");
-    if (!token) return
+  // const tokenExpirado = () => {
+  //   const storedUser = JSON.parse(localStorage.getItem("user"));
+  //   const token = storedUser.tokenAccess;
+  //   if (!token) return
 
-    try {
-      const decoded = jwtDecode(token);
-      const contador = Date.now() / 1000;
+  //   try {
+  //     const decoded = jwtDecode(token);
+  //     const contador = Date.now() / 1000;
 
-      if (decoded.exp < contador) {
-        console.warn("ha expirado su token. Cerrando sesion...");
-        logout();
-      }
-    } catch (error) {
-      console.error("Ha ocurrido un error", error);
-      logout();
-    }
-  }
+  //     if (decoded.exp < contador) {
+  //       console.warn("ha expirado su token. Cerrando sesion...");
+  //       logout();
+  //     }
+  //   } catch (error) {
+  //     console.error("Ha ocurrido un error", error);
+  //     logout();
+  //   }
+  // }
 
-  const loginAuth = (userData, token) => {
-    localStorage.setItem("token", token);
+  const loginAuth = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
     setIsAuthenticated(true);
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
     localStorage.setItem("user", JSON.stringify(invitado));
     setUser(invitado);
     setIsAuthenticated(false);

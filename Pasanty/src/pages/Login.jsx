@@ -16,16 +16,14 @@ const Login = () => {
         const datos = { correo, contrasena }
         try {
             const resultado = await loginApi(datos);
-            if (resultado.user && resultado.token) {
-                const user = resultado.user;
-                const token = resultado.token;
-                loginAuth(user, token);
+            if (resultado.user && resultado.tokenAccess && resultado.tokenRefresh) {
+                loginAuth(resultado);
             } else if (resultado.mensaje) {
                 alert(resultado.mensaje);
             } else {
                 alert("algo salio mal")
             }
-            if ((localStorage.getItem("token")) && localStorage.getItem("user")) {
+            if (localStorage.getItem("user")) {
                 navegate("/");
             }
         } catch (error) {

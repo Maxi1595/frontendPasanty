@@ -1,29 +1,31 @@
+import instance from "./api";
+
 const UrlApi = "http://localhost:3000/api/postulantes";
 const token = localStorage.getItem("token");
 
 export const getPostulaciones = async () => {
-    try{
+    try {
         const res = await fetch(`${UrlApi}/verPorVacante`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         })
         return res.json();
-    } catch(error){
+    } catch (error) {
         return { error: error.message };
     }
 }
 
-export const getPostulacionById = async (id) =>{
-    try{
+export const getPostulacionById = async (id) => {
+    try {
         const res = await fetch(`${UrlApi}/buscarPorId/${id}`, {
             method: "GET",
-            headers:{
+            headers: {
                 "Authorization": `Bearer ${token}`
             }
         })
         return res.json();
-    }catch(error){
+    } catch (error) {
         return { error: error.message };
     }
 }
@@ -46,7 +48,7 @@ export const postPostularse = async (id) => {
 }
 
 export const patchEstado = async (id, datos) => {
-    try{
+    try {
         const res = await fetch(`${UrlApi}/cambiarEstado/${id}`, {
             method: "PATCH",
             headers: {
@@ -55,23 +57,28 @@ export const patchEstado = async (id, datos) => {
             },
             body: JSON.stringify(datos)
         })
-    }catch(error){
+    } catch (error) {
         return { error: error.message };
     }
 }
 
+// export const getEstado = async () => {
+//     try{
+//         const res = await fetch(`${UrlApi}/verEstado`, {
+//             headers: {
+//                 'Authorization': `Bearer ${token}`
+//             }
+//         })
+//         return res.json();
+//     }catch(error){
+//         return { error: error.message };
+//     }
+// }
+
 export const getEstado = async () => {
-    try{
-        const res = await fetch(`${UrlApi}/verEstado`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        return res.json();
-    }catch(error){
-        return { error: error.message };
-    }
-}
+    const resultado = instance.get("/postulantes/verEstado");
+    return resultado;
+};
 
 export const getCVByPostulacion = async (id) => {
     try {

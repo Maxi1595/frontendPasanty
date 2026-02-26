@@ -25,14 +25,17 @@ instance.interceptors.response.use(
         return res;
     },
     async (error) => {
-        if (error.config.url !== "/auth/login" && error.response) {
+        if (error.config.url !== "/auth/login" && error.config.url !== "/auth/refreshToken" && error.response) {
             if (error.response.status === 401 && !error.config._retry) {
                 error.config._retry = true;
-
+                    console.log("hola")
                 try {
-                    const rs = await instance.post("/auth/refreshToken", { RefreshToken: tokenService.getLocalRefreshToken(), })
 
-                    tokenService.upgrateLocalAccessToken(rs);
+                    const rs = await instance.post("/auth/refreshToken", { tokenRefresh: tokenService.getLocalRefreshToken(), })
+                    const { tokenAccess } = rs?.data;
+                    console.log(tokenAccess);
+
+                    tokenService.upgrateLocalAccessToken(tokenAccess);
                     return instance(error.config);
                 } catch (_error) {
                     return Promise.reject(_error)
@@ -42,4 +45,6 @@ instance.interceptors.response.use(
         }
         return Promise.reject(error);
     }
-) 
+)
+
+export default instance;
