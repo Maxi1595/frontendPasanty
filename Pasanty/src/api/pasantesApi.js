@@ -8,8 +8,8 @@ const UrlApi = "http://localhost:3000/api/pasantes"
 // };
 
 export const getPasantes = async () => {
-    const resultado = instance.get("pasantes/buscar");
-    return resultado;
+    const resultado = await instance.get("pasantes/buscar");
+    return resultado?.data;
 }
 
 // export const getPasanteById = async (id) => {
@@ -22,7 +22,7 @@ export const getPasantes = async () => {
 
 export const getPasanteById = async (id) => {
     const resultado = await instance.get(`/pasantes/buscar/${id}`);
-    return resultado?.data;
+    return resultado?.data.data;
 }
 
 export const postSubirCV = async (archivo) => {

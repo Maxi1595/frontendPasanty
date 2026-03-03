@@ -12,35 +12,38 @@ const MarketPlace = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
-    const toggleFiltros = (filt, valor) => {
-        setFiltro((prev) => ({
-            ...prev,
-            [filt]: prev[filt].includes(valor)
-                ? prev[filt].filter((item) => item !== valor)
-                : [...prev[filt], valor],
-        }))
-    }
+    // const toggleFiltros = (filt, valor) => {
+    //     setFiltro((prev) => ({
+    //         ...prev,
+    //         [filt]: prev[filt].includes(valor)
+    //             ? prev[filt].filter((item) => item !== valor)
+    //             : [...prev[filt], valor],
+    //     }))
+    // }
 
-    const pasantesFiltro = pasantes.filter((pasantes) => {
-        const matchEspecialidad = filtro.especialidad.length === 0 || filtro.especialidad.includes(pasantes.especialidad)
-        return matchEspecialidad
-    })
+    // const pasantesFiltro = pasantes.filter((pasantes) => {
+    //     const matchEspecialidad = filtro.especialidad.length === 0 || filtro.especialidad.includes(pasantes.especialidad)
+    //     return matchEspecialidad
+    // })
 
     useEffect(() => {
         getPasantes().then(req => {
             setPasantes(req?.data);
             console.log(req?.data)
+            console.log(typeof pasantes);
         });
 
-        setCurrentPage(1);
-    }, [filtro])
+        // setCurrentPage(1);
+    }, [
+        // filtro
+    ])
 
-    const indexOfLast = currentPage * itemsPerPage;
-    const indexOfFirst = indexOfLast - itemsPerPage;
+    // const indexOfLast = currentPage * itemsPerPage;
+    // const indexOfFirst = indexOfLast - itemsPerPage;
 
-    const pasantesPaginados = pasantesFiltro.slice(indexOfFirst, indexOfLast);
+    // const pasantesPaginados = pasantesFiltro.slice(indexOfFirst, indexOfLast);
 
-    const totalPages = Math.ceil(pasantesFiltro.length / itemsPerPage);
+    // const totalPages = Math.ceil(pasantesFiltro.length / itemsPerPage);
 
 console.log(pasantes)
 
@@ -183,12 +186,12 @@ console.log(pasantes)
                     <div className="p-4 items-center justify-center">
                         <div className="flex flex-wrap gap-4 justify-start">
                             <Box className="flex flex-wrap justify-center gap-6 p-2 w-[75%]">
-                                {pasantesPaginados === 0 ? (
+                                {pasantes === 0 ? (
                                     <div>
                                         <p>No se ha encontrado pasantes, disponibles</p>
                                     </div>
                                 ) : (
-                                    pasantesPaginados.map((p) => (
+                                    pasantes.map((p) => (
                                         <Card className="flex flex-col text-center justify-center items-center gap-2 w-[30%]" key={p.id}>
                                             {/* AQUI VA LA PREVISUALIZACION DEL CV (AUN NO TENEMOS ESO)
                                         <CardMedia classNae="h-20" /> 
@@ -206,7 +209,7 @@ console.log(pasantes)
                                 }
                             </Box>
                         </div>
-                        <div className="flex gap-2 mt-4">
+                        {/* <div className="flex gap-2 mt-4">
                             {Array.from({ length: totalPages }, (_, i) => i + 1).map(num => (
                                 <button
                                     key={num}
@@ -217,7 +220,7 @@ console.log(pasantes)
                                     {num}
                                 </button>
                             ))}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
