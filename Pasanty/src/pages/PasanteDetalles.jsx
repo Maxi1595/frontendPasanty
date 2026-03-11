@@ -39,7 +39,7 @@ const PasanteDetalles = () => {
                     )}
 
                 </Box>
-                {usuario.rol === 1 ? (
+                {/* {usuario.rol === 1 ? (
                     <Box className="w-[65%] h-screen">
                         No puede ver el CV, solo empresas y el propio usuario pueden ver el CV
                     </Box>
@@ -51,7 +51,7 @@ const PasanteDetalles = () => {
                     <Box className="w-[65%] h-screen">
                         <MyCV></MyCV>
                     </Box>
-                )}
+                )} */}
             </Box>
         </>
     )

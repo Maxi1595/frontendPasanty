@@ -28,8 +28,8 @@ const MarketPlace = () => {
 
     useEffect(() => {
         getPasantes().then(req => {
-            setPasantes(req?.data);
-            console.log(req?.data)
+            setPasantes(req);
+            console.log(req)
             console.log(typeof pasantes);
         });
 

@@ -22,7 +22,10 @@ instance.interceptors.request.use((config) => {
 
 instance.interceptors.response.use(
     (res) => {
-        return res;
+        if (res?.data?.data !== undefined){
+        return res.data.data;
+        }
+        return res?.data;
     },
     async (error) => {
         if (error.config.url !== "/auth/login" && error.config.url !== "/auth/refreshToken" && error.response) {
