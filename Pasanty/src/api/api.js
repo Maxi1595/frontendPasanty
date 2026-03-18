@@ -1,5 +1,6 @@
 import axios from "axios";
 import tokenService from "../service/tokenService";
+import { authEvents } from "../service/authEvents";
 
 const instance = axios.create({
     baseURL: "http://localhost:3000/api",
@@ -22,8 +23,8 @@ instance.interceptors.request.use((config) => {
 
 instance.interceptors.response.use(
     (res) => {
-        if (res?.data?.data !== undefined){
-        return res.data.data;
+        if (res?.data?.data !== undefined) {
+            return res.data.data;
         }
         return res?.data;
     },
@@ -31,7 +32,6 @@ instance.interceptors.response.use(
         if (error.config.url !== "/auth/login" && error.config.url !== "/auth/refreshToken" && error.response) {
             if (error.response.status === 401 && !error.config._retry) {
                 error.config._retry = true;
-                    console.log("hola")
                 try {
 
                     const rs = await instance.post("/auth/refreshToken", { tokenRefresh: tokenService.getLocalRefreshToken(), })
@@ -40,7 +40,9 @@ instance.interceptors.response.use(
 
                     tokenService.upgrateLocalAccessToken(tokenAccess);
                     return instance(error.config);
+
                 } catch (_error) {
+                    authEvents.logout?.();
                     return Promise.reject(_error)
                 }
 

@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { authEvents } from '../service/authEvents';
 import { jwtDecode } from 'jwt-decode';
 
 export const AuthContext = createContext();
@@ -16,6 +17,10 @@ export const AuthProvider = ({ children }) => {
     tokenAccess: null,
     tokenRefresh: null
   };
+
+  useEffect(() => {
+    authEvents.logout = logout;
+  }, [])
 
   // Al cargar la app, revisamos si hay token guardado
   useEffect(() => {
