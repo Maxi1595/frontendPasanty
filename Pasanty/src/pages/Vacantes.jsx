@@ -11,7 +11,7 @@ const Vacantes = () => {
         const userData = localStorage.getItem("user");
         return userData ? JSON.parse(userData) : null;
     });
-    const rol = usuario.rol;
+    const rol = usuario.user.rol;
     const [datos, setDatos] = useState({
         titulo: "",
         descripcion: ""

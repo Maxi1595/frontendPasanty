@@ -4,7 +4,7 @@ import { getPostulaciones } from "../api/postularseApi";
 import { Box } from "@mui/material"
 
 const Postulaciones = () => {
-    const token = localStorage.getItem("token");
+//  const token = localStorage.getItem("token");
     const { id } = useParams();
     const [postulantes, setPostulantes] = useState([]);
 
@@ -28,7 +28,11 @@ const Postulaciones = () => {
                     <p>Vacante</p>
                     <p>Informacion</p>
                 </Box>
+            {/* {!postulantes => (
+                <div>
 
+            </div>)}
+             */}
             {postulantes.map((p) => (
                 <div className="flex flex-row justify-between border text-aling-center" key={p.id}>
                     <h3>{p.pasante?.usuario?.nombre}</h3>

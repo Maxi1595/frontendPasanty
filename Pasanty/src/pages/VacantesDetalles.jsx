@@ -11,7 +11,7 @@ const VacantesDetalles = () => {
 
     const [usuario, setUsuario] = useState(JSON.parse(localStorage.getItem("user")));
 
-    const rol = usuario.rol;
+    const rol = usuario.user.rol;
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -26,7 +26,7 @@ const VacantesDetalles = () => {
     }, [id])
 
     const handleSubmit = async () => {
-        if (usuario.rol === 3) {
+        if (rol === 3) {
             postPostularse(id);
             setOpen(false);
             alert("Se postulo correctamente");            

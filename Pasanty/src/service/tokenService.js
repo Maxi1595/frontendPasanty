@@ -2,13 +2,13 @@
 
 const getLocalAccessToken = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user)
+    // console.log(user)
     return user?.tokenAccess;
 }
 
 const getLocalRefreshToken = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user?.tokenRefresh);
+    // console.log(user?.tokenRefresh);
     return user?.tokenRefresh;
 }
 
