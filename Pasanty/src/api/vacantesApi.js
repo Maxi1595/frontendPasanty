@@ -1,31 +1,16 @@
+import instance from "./api";
+
 const UrlApi = "http://localhost:3000/api/vacante"
 
+
 export const getVacante = async () => {
-    const res = await fetch(`${UrlApi}/buscar`);
-    return res.json();
+    return await instance.get("/vacante/buscar");
 }
 
 export const getVacanteById = async (id) => {
-    const res = await fetch(`${UrlApi}/buscar/${id}`);
-    if (!res.ok) {
-        throw new Error("Error al traer la vacante");
-    }
-    return res.json();
+    return await instance.get(`/vacante/buscar/${id}`)
 }
 
 export const postVacante = async (datos) => {
-    try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(`${UrlApi}/crear`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(datos)
-        });
-        return res.json();
-    } catch (error) {
-        return { error: true, message: error.message };
-    }
+    return await instance.post(`/vacante/crear`, datos);
 }
