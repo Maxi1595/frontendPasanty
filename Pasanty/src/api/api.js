@@ -35,13 +35,14 @@ instance.interceptors.response.use(
                 try {
 
                     const rs = await instance.post("/auth/refreshToken", { tokenRefresh: tokenService.getLocalRefreshToken(), })
-                    const { tokenAccess } = rs?.data;
+                    const { tokenAccess } = rs;
                     console.log(tokenAccess);
 
                     tokenService.upgrateLocalAccessToken(tokenAccess);
                     return instance(error.config);
 
                 } catch (_error) {
+                    console.log("ERROR REFRESH", _error);
                     authEvents.logout?.();
                     return Promise.reject(_error)
                 }
