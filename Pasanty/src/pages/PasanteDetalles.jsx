@@ -6,23 +6,29 @@ import { Box } from "@mui/material"
 import ViewCv from "../components/ViewCV"
 import MyCV from "../components/MyCV";
 
+import {useContext} from "react";
+import { AuthContext } from "../contexts/authContext";
+
 const PasanteDetalles = () => {
 
     const { id } = useParams();
     const [pasante, setPasante] = useState(null);
 
+    const {user} = useContext(AuthContext);
     const [usuario, setUsuario] = useState({});
 
     useEffect(() => {
 
-        const user = localStorage.getItem("user");
         setUsuario(user);
-        
+
         getPasanteById(id).then(data => {
             console.log(data);
             setPasante(data);
         });
-    }, [id])
+    }, [])
+
+    console.log(usuario);
+
 
     return (
         <>
@@ -39,17 +45,33 @@ const PasanteDetalles = () => {
                     )}
 
                 </Box>
-                {/* {usuario.rol === 1 ? (
+                {!pasante ? (
+                    <p>Cargando...</p>
+                ) : !pasante.cv ? (
+                    <p>Este pasante aún no subió su CV</p>
+                ) : String(pasante.usuarioId) === String(usuario.user.id) ? (
+                    <Box className="w-[65%] h-screen">
+                        <ViewCv esPropio={true} />
+                    </Box>
+                ) : usuario.user.rol === 5 ? (
+                    <Box className="w-[65%] h-screen">
+                        <ViewCv esPropio={false} id={id} />
+                    </Box>
+                ) : (
+                    <p>No tenés permiso para ver este CV</p>
+                )}
+                {/* {usuario.cv === null ? (
                     <Box className="w-[65%] h-screen">
                         No puede ver el CV, solo empresas y el propio usuario pueden ver el CV
                     </Box>
                 ) : usuario.rol === 5 ? (
                     <Box className="w-[65%] h-screen">
-                        <ViewCv></ViewCv>
+                        <ViewCv esPropio={false} id/>
+                        <p>entro</p>
                     </Box>
                 ) : (
                     <Box className="w-[65%] h-screen">
-                        <MyCV></MyCV>
+                        <ViewCv esPropio={true} />
                     </Box>
                 )} */}
             </Box>

@@ -1,33 +1,39 @@
 import { useState, useEffect } from "react";
-import { getCV } from "../api/pasantesApi";
+import { getCV, getMyCV } from "../api/pasantesApi";
 import { useParams } from "react-router-dom";
 
-const ViewCV = () => {
+const ViewCV = ({ esPropio, id }) => {
 
-  const { id } = useParams();
   const [cvUrl, setCvUrl] = useState(null);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchCV = async () => {
-      const url = await getCV(id); // tu función del fetch
-      setCvUrl(url);
-    };
-    fetchCV();
-  }, []);
+      return esPropio===true ? await getMyCV() : await getCV(id);
+    }
+    fetchCV()
+    .then(url => setCvUrl(url))
+    .catch(err => setError(err.message))
+    .finally(() => setCargando(false));
+}, []);
 
-  return (
-    <>
-      {cvUrl && (
-        <object 
-        data={cvUrl} 
-        type="application/pdf" 
-        width="100%" 
+if (cargando) return <p>Cargando CV...</p>;
+if (error) return <p>{error}</p>
+
+return (
+  <>
+    {cvUrl && (
+      <object
+        data={cvUrl}
+        type="application/pdf"
+        width="100%"
         height="100%"
-        >
-        </object>
-      )}
-    </>
-  );
+      >
+      </object>
+    )}
+  </>
+);
 };
 
 export default ViewCV;
