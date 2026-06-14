@@ -35,36 +35,16 @@ export const postSubirCV = async (archivo) => {
 
 //hacer despues
 export const getCV = async (id) => {
-    try {
-        const token = localStorage.getItem("token");
+    const blob = await instance.get(`/pasantes/cv/${id}`, {
+        responseType: 'blob'  // le decís a axios que espere bytes, no JSON
+    });
+    return URL.createObjectURL(blob);
+};
 
-        const res = await fetch(`${UrlApi}/cv/${id}`, {
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        const blob = await res.blob();
-
-        return URL.createObjectURL(blob);
-    } catch (error) {
-        return { error: error.message };
-    }
-}
 //hacer despues
 export const getMyCV = async () => {
-    try{
-        const token = localStorage.getItem("token");
-
-        const res = await fetch (`${UrlApi}/propio-cv`, {
-            headers:{
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        const blob = await res.blob();
-
-        return URL.createObjectURL(blob);
-    }catch(error){
-        return { error: error.message };
-    }
+    const blob = await instance.get('/pasantes/propio-cv', {
+        responseType: 'blob'
+    });
+    return URL.createObjectURL(blob);
 }
