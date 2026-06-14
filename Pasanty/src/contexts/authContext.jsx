@@ -7,10 +7,11 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return !!localStorage.getItem("token");
+    return !!localStorage.getItem("user");
   });
   const invitado = {
     user: {
+      id: 0,
       username: "invitado",
       rol: 1
     },
@@ -37,25 +38,6 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
     }
   }, []);
-
-  // const tokenExpirado = () => {
-  //   const storedUser = JSON.parse(localStorage.getItem("user"));
-  //   const token = storedUser.tokenAccess;
-  //   if (!token) return
-
-  //   try {
-  //     const decoded = jwtDecode(token);
-  //     const contador = Date.now() / 1000;
-
-  //     if (decoded.exp < contador) {
-  //       console.warn("ha expirado su token. Cerrando sesion...");
-  //       logout();
-  //     }
-  //   } catch (error) {
-  //     console.error("Ha ocurrido un error", error);
-  //     logout();
-  //   }
-  // }
 
   const loginAuth = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));

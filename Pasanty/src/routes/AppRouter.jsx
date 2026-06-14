@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute"
 import { AuthProvider } from "../contexts/authContext";
-import LayoutMain from "../layouts/layoutsMain";
+import LayoutMain from "../layouts/LayoutsMain";
 
 import Home from "../pages/Home"
 import Register from "../pages/Register"
@@ -23,13 +23,15 @@ const AppRouter = () => {
 
                 {/*Rutas publicas */}
                 <Route element={<LayoutMain />}>
-                    <Route path="/" element={<Home />}/>
+                    <Route path="/" element={<Home />} />
                     <Route path="/marketplace" element={<MarketPlace />} />
                     <Route path="/pasantes/:id" element={<PasanteDetalles />} />
                     <Route path="/vacantes" element={<Vacantes />} />
                     <Route path="/vacantes/:id" element={<VacantesDetalles />} />
-                    <Route path="/postulante/:id" element={<PostulanteDetalles />}/>
-                    <Route path="/perfil" element={<Perfil />}/>
+                    <Route path="/postulante/:id" element={<PostulanteDetalles />} />
+                    <Route path="/perfil" element={<Perfil />} />
+                    {/* <Route path="/tusEstados" element={<Estado />} /> */}
+                    <Route path="/postulaciones" element={<Postulaciones />} />
                 </Route>
 
                 {/*Sin navbar */}
@@ -38,22 +40,22 @@ const AppRouter = () => {
                 <Route path="/login" element={<Login />} />
 
                 {/*Rutas privadas para empresas */}
-                
+
                 <Route element={<LayoutMain />}>
                     <Route element={<ProtectedRoute allowedRoles={["5"]} />}>
-                        <Route path="/postulaciones" element={<Postulaciones />} />
-                    </Route>        
+                        {/* <Route path="/postulaciones" element={<Postulaciones />} /> */}
+                    </Route>
                 </Route>
 
                 {/* Rutas privadas para pasantes */}
 
                 <Route element={<LayoutMain />}>
-                    <Route element={<ProtectedRoute allowedRoles={["3"]}/>}>
+                    <Route element={<ProtectedRoute allowedRoles={["3"]} />}>
                         {/* <Route path="/tusPostulaciones" element={<Postulaciones />}/> */}
-                        <Route path="/tusEstados" element={<Estado />}/>
+                        <Route path="/tusEstados" element={<Estado />} />
                     </Route>
                 </Route>
-            
+
             </Routes>
         </AuthProvider>
     )
