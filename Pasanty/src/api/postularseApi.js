@@ -1,8 +1,5 @@
 import instance from "./api";
 
-const UrlApi = "http://localhost:3000/api/postulantes";
-const token = localStorage.getItem("token");
-
 export const getPostulaciones = async () => {
     const postulaciones = await instance.get(`/postulantes/verPorVacante`);
     console.log(postulaciones);
@@ -15,17 +12,19 @@ export const getPostulacionById = async (id) => {
 }
 
 export const postPostularse = async (id) => {
-    const postulacion = await instance.post(`/postularse/${id}`);
+    console.log(id);
+    const postulacion = await instance.post(`/postulantes/postularse/${id}`);
     return (postulacion);
 }
 
 export const patchEstado = async (id, datos) => {
-    const postulacion = await instance.patch(`/postularse/${id}`, datos);
+    const postulacion = await instance.patch(`/postulantes/postularse/${id}`, datos);
     return (postulacion);
 }
 
 export const getEstado = async () => {
-    const resultado = instance.get("/postulantes/verEstado");
+    const resultado = await instance.get("/postulantes/verEstado");
+    console.log(resultado);
     return resultado;
 };
 
@@ -45,4 +44,9 @@ export const getCVByPostulacion = async (id) => {
     } catch (error) {
         return { error: error.message };
     }
+}
+
+export const getContador = async () => {
+    const resultado = await instance.get("/postulantes/contador");
+    return resultado;
 }

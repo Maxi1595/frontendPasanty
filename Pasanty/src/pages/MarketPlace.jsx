@@ -2,7 +2,8 @@ import { useState, useEffect } from "react"
 import { getPasantes } from "../api/pasantesApi";
 import { Link } from "react-router-dom";
 import { Box, Card, CardMedia, CardContent, CardActions } from "@mui/material"
-
+import { ESPECIALIDADES } from "../constants/Especialidades"
+import Filtro from "../components/Filtros"
 
 const MarketPlace = () => {
 
@@ -12,19 +13,20 @@ const MarketPlace = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
-    // const toggleFiltros = (filt, valor) => {
-    //     setFiltro((prev) => ({
-    //         ...prev,
-    //         [filt]: prev[filt].includes(valor)
-    //             ? prev[filt].filter((item) => item !== valor)
-    //             : [...prev[filt], valor],
-    //     }))
-    // }
+    const toggleFiltros = (valor) => {
+        setFiltro((prev) => ({
+            ...prev,
+            especialidad: prev.especialidad.includes(valor)
+                ? prev.especialidad.filter((item) => item !== valor)
+                : [...prev.especialidad, valor],
+        }))
+        console.log(valor);
+    }
 
-    // const pasantesFiltro = pasantes.filter((pasantes) => {
-    //     const matchEspecialidad = filtro.especialidad.length === 0 || filtro.especialidad.includes(pasantes.especialidad)
-    //     return matchEspecialidad
-    // })
+    const pasantesFiltro = pasantes.filter((pasantes) => {
+        const matchEspecialidad = filtro.especialidad.length === 0 || filtro.especialidad.includes(pasantes.especialidad)
+        return matchEspecialidad
+    })
 
     useEffect(() => {
         getPasantes().then(req => {
@@ -45,7 +47,7 @@ const MarketPlace = () => {
 
     // const totalPages = Math.ceil(pasantesFiltro.length / itemsPerPage);
 
-console.log(pasantes)
+    console.log(pasantes)
 
     return (
         <>
@@ -60,126 +62,12 @@ console.log(pasantes)
                     {/* Filtros */}
                     <div className="bg-gray-50 p-4 rounded shadow">
                         <h2 className="text-lg font-semibold mb-2">Filtros</h2>
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "ingenieria_informatica")} />
-                            <span>Ingeniería Informática</span>
-                        </label>
 
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_en_Sistemas")} />
-                            <span>Ingeniería en Sistemas</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_Electrónica")} />
-                            <span>Ingeniería Electrónica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "diseño_grafico")} />
-                            <span>Diseño Gráfico</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "marketing")} />
-                            <span>Marketing</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_Industrial")} />
-                            <span>Ingeniería Industrial</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_Civil")} />
-                            <span>Ingeniería Civil</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_Mecánica")} />
-                            <span>Ingeniería Mecánica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_Eléctrica")} />
-                            <span>Ingeniería Eléctrica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_Química")} />
-                            <span>Ingeniería Química</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_Ambiental")} />
-                            <span>Ingeniería Ambiental</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_en_Energías_Renovables")} />
-                            <span>Ingeniería en Energías Renovables</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ingeniería_Biomédica")} />
-                            <span>Ingeniería Biomédica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ciencias_de_la_Computación")} />
-                            <span>Ciencias de la Computación</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Desarrollo_de_Software")} />
-                            <span>Desarrollo de Software</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Análisis_de_Sistemas")} />
-                            <span>Análisis de Sistemas</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ciberseguridad")} />
-                            <span>Ciberseguridad</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Inteligencia_Artificial")} />
-                            <span>Inteligencia Artificial</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Ciencia_de_Datos")} />
-                            <span>Ciencia de Datos</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Robótica")} />
-                            <span>Robótica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Diseño_Gráfico")} />
-                            <span>Diseño Gráfico</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Diseño_Industrial")} />
-                            <span>Diseño Industrial</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Diseño_de_Interiores")} />
-                            <span>Diseño de Interiores</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("especialidad", "Diseño_UX/UI")} />
-                            <span>Diseño UX/UI</span>
-                        </label>
-
+                        <Filtro
+                            opciones={ESPECIALIDADES}
+                            seleccionados={filtro.especialidad}
+                            onToggle={toggleFiltros}
+                        />
                     </div>
 
                     {/* Cards */}
@@ -191,7 +79,7 @@ console.log(pasantes)
                                         <p>No se ha encontrado pasantes, disponibles</p>
                                     </div>
                                 ) : (
-                                    pasantes.map((p) => (
+                                    pasantesFiltro.map((p) => (
                                         <Card className="flex flex-col text-center justify-center items-center gap-2 w-[30%]" key={p.id}>
                                             {/* AQUI VA LA PREVISUALIZACION DEL CV (AUN NO TENEMOS ESO)
                                         <CardMedia classNae="h-20" /> 

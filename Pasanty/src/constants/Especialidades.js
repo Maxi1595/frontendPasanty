@@ -1,0 +1,27 @@
+// constants/especialidades.js
+
+export const ESPECIALIDADES = [
+  { valor: "ingenieria_informatica", etiqueta: "Ingeniería Informática" },
+  { valor: "Ingeniería_en_Sistemas", etiqueta: "Ingeniería en Sistemas" },
+  { valor: "Ingeniería_Electrónica", etiqueta: "Ingeniería Electrónica" },
+  { valor: "diseño_grafico", etiqueta: "Diseño Gráfico" },
+  { valor: "marketing", etiqueta: "Marketing" },
+  { valor: "Ingeniería_Industrial", etiqueta: "Ingeniería Industrial" },
+  { valor: "Ingeniería_Civil", etiqueta: "Ingeniería Civil" },
+  { valor: "Ingeniería_Mecánica", etiqueta: "Ingeniería Mecánica" },
+  { valor: "Ingeniería_Eléctrica", etiqueta: "Ingeniería Eléctrica" },
+  { valor: "Ingeniería_Química", etiqueta: "Ingeniería Química" },
+  { valor: "Ingeniería_Ambiental", etiqueta: "Ingeniería Ambiental" },
+  { valor: "Ingeniería_en_Energías_Renovables", etiqueta: "Ingeniería en Energías Renovables" },
+  { valor: "Ingeniería_Biomédica", etiqueta: "Ingeniería Biomédica" },
+  { valor: "Ciencias_de_la_Computación", etiqueta: "Ciencias de la Computación" },
+  { valor: "Desarrollo_de_Software", etiqueta: "Desarrollo de Software" },
+  { valor: "Análisis_de_Sistemas", etiqueta: "Análisis de Sistemas" },
+  { valor: "Ciberseguridad", etiqueta: "Ciberseguridad" },
+  { valor: "Inteligencia_Artificial", etiqueta: "Inteligencia Artificial" },
+  { valor: "Ciencia_de_Datos", etiqueta: "Ciencia de Datos" },
+  { valor: "Robótica", etiqueta: "Robótica" },
+  { valor: "Diseño_Industrial", etiqueta: "Diseño Industrial" },
+  { valor: "Diseño_de_Interiores", etiqueta: "Diseño de Interiores" },
+  { valor: "Diseño_UX/UI", etiqueta: "Diseño UX/UI" },
+];
