@@ -14,6 +14,7 @@ import Postulaciones from "../pages/Postulaciones";
 import PostulanteDetalles from "../pages/PostulanteDetalles";
 import Perfil from "../pages/Perfil";
 import Estado from "../pages/Estado";
+import EmpresaDetalles from "../pages/EmpresaDetalles";
 
 const AppRouter = () => {
     return (
@@ -30,7 +31,7 @@ const AppRouter = () => {
                     <Route path="/vacantes/:id" element={<VacantesDetalles />} />
                     <Route path="/postulante/:id" element={<PostulanteDetalles />} />
                     <Route path="/perfil" element={<Perfil />} />
-                    {/* <Route path="/tusEstados" element={<Estado />} /> */}
+                    <Route path="/empresaDetalles/:id" element={<EmpresaDetalles/>} />
                     <Route path="/postulaciones" element={<Postulaciones />} />
                 </Route>
 

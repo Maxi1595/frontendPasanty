@@ -6,8 +6,13 @@ export const getPerfilPasante = async () => {
     return perfil;
 }
 
-export const putDescripcionPasante = async (data) => {
-    const perfil = await instance.put(`/perfil/cambiar/descripcion/pasante`, data);
+export const getPerfilPasanteById = async (id) => {
+    const perfil = await instance.get(`/perfil/ver/pasante/${id}`);
+    return perfil;
+}
+
+export const putPerfilPasante = async (data) => {
+    const perfil = await instance.put(`/perfil/cambiar/pasante`, data);
     return perfil;
 }
 
@@ -17,7 +22,12 @@ export const getPerfilEmpresa = async () => {
     return perfil;
 }
 
-export const putDescripcionEmpresa = async (data) => {
-    const perfil = await instance.put(`/perfil/cambiar/descripcion/empresa`, data);
+export const getPerfilEmpresaByParams = async (id) => {
+    const perfil = await instance.get(`/perfil/ver/empresa/${id}`)
+    return perfil;
+}
+ 
+export const putPerfilEmpresa = async (data) => {
+    const perfil = await instance.put(`/perfil/cambiar/empresa`, data);
     return perfil;
 }

@@ -86,6 +86,36 @@ const Register = () => {
                                             contrasena: e.target.value
                                         })
                                         } />
+
+                                    <TextField
+                                        id="direccion"
+                                        name="direccion"
+                                        label="Direccion"
+                                        type="text"
+                                        onChange={(e) => setDatos({
+                                            ...datos,
+                                            direccion: e.target.value
+                                        })
+                                        } />
+                                    <InputLabel>estado academico</InputLabel>
+                                    <Select
+                                        id="estadoAcademico"
+                                        name="estadoAcademico"
+                                        label="Estado academico"
+                                        onChange={(e) => setDatos({
+                                            ...datos,
+                                            estadoAcademico: e.target.value
+                                        })}
+                                    >
+                                        <MenuItem value="Primer_año">Primer año</MenuItem>
+                                        <MenuItem value="Segundo_año">Segundo año</MenuItem>
+                                        <MenuItem value="Tercer_año">Tercer año</MenuItem>
+                                        <MenuItem value="Cuarto_año">Cuarto año</MenuItem>
+                                        <MenuItem value="Quinto_año">Quinto año</MenuItem>
+                                        <MenuItem value="Sexto_año">Sexto año</MenuItem>
+                                        <MenuItem value="Graduado">Graduado</MenuItem>
+                                    </Select>
+
                                     <InputLabel>Profesión</InputLabel>
                                     <Select
                                         id="especialidad"

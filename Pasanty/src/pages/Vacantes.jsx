@@ -3,6 +3,10 @@ import { getVacante } from "../api/vacantesApi";
 import { Link } from "react-router-dom";
 import { Button, Box, Modal, TextField, Select, MenuItem, InputLabel } from "@mui/material";
 import { postVacante } from "../api/vacantesApi";
+import { ESPECIALIDADES } from "../constants/Especialidades"
+
+import Filtro from "../components/Filtros";
+import Paginacion from "../components/Paginacion";
 
 const Vacantes = () => {
 
@@ -14,12 +18,20 @@ const Vacantes = () => {
     const rol = usuario.user.rol;
     const [datos, setDatos] = useState({
         titulo: "",
-        descripcion: ""
+        puesto: "",
+        descripcion: "",
+        remuneracion: false,
     })
-    const [filtro, setFiltro] = useState({ titulo: [] });
+    const [filtro, setFiltro] = useState({
+        titulo: [],
+        remuneracion: null
+    });
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+
+    const [buscador, setBuscador] = useState("");
+    const [orden, setOrden] = useState("");
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -34,13 +46,14 @@ const Vacantes = () => {
         setCurrentPage(1);
     }, [filtro]);
 
-    const toggleFiltros = (filt, valor) => {
+    const toggleFiltros = (valor) => {
         setFiltro((prev) => ({
             ...prev,
-            [filt]: prev[filt].includes(valor)
-                ? prev[filt].filter((item) => item !== valor)
-                : [...prev[filt], valor],
+            titulo: prev.titulo.includes(valor)
+                ? prev.titulo.filter((item) => item !== valor)
+                : [...prev.titulo, valor],
         }))
+        console.log(valor);
     }
 
     const vacantesFiltradas = vacantes.filter((v) => {
@@ -68,6 +81,18 @@ const Vacantes = () => {
         }
     }
 
+    const vacantesFiltro = vacantes.filter((vacantes) => {
+        const matchPuesto = (vacantes.puesto ?? "").toLowerCase().includes(buscador.toLowerCase());
+        const matchRemuneracion = filtro.remuneracion === null || vacantes.remuneracion === filtro.remuneracion;
+        return matchPuesto && matchRemuneracion;
+    })
+
+    const vacantesOrden = [...vacantesFiltro].sort((a, b) => {
+        if (orden === "az") return a.vacante.puesto.localeCompare(b.vacante.puesto);
+        if (orden === "za") return b.vacante.puesto.localeCompare(a.vacante.puesto);
+        return 0;
+    })
+
     return (
         <>
             <div className="grid grid-rows-[auto_1fr] h-screen gap-4 p-4">
@@ -80,126 +105,38 @@ const Vacantes = () => {
                 <div className="grid grid-cols-[25%_75%] gap-4">
                     {/* Filtros */}
                     <div className="bg-gray-50 p-4 rounded shadow">
-                        <h2 className="text-lg font-semibold mb-2">Filtros</h2>
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "ingenieria_informatica")} />
-                            <span>Ingeniería Informática</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_en_Sistemas")} />
-                            <span>Ingeniería en Sistemas</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_Electrónica")} />
-                            <span>Ingeniería Electrónica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "diseño_grafico")} />
-                            <span>Diseño Gráfico</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "marketing")} />
-                            <span>Marketing</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_Industrial")} />
-                            <span>Ingeniería Industrial</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_Civil")} />
-                            <span>Ingeniería Civil</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_Mecánica")} />
-                            <span>Ingeniería Mecánica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_Eléctrica")} />
-                            <span>Ingeniería Eléctrica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_Química")} />
-                            <span>Ingeniería Química</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_Ambiental")} />
-                            <span>Ingeniería Ambiental</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_en_Energías_Renovables")} />
-                            <span>Ingeniería en Energías Renovables</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ingeniería_Biomédica")} />
-                            <span>Ingeniería Biomédica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ciencias_de_la_Computación")} />
-                            <span>Ciencias de la Computación</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Desarrollo_de_Software")} />
-                            <span>Desarrollo de Software</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Análisis_de_Sistemas")} />
-                            <span>Análisis de Sistemas</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ciberseguridad")} />
-                            <span>Ciberseguridad</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Inteligencia_Artificial")} />
-                            <span>Inteligencia Artificial</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Ciencia_de_Datos")} />
-                            <span>Ciencia de Datos</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Robótica")} />
-                            <span>Robótica</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Diseño_Gráfico")} />
-                            <span>Diseño Gráfico</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Diseño_Industrial")} />
-                            <span>Diseño Industrial</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Diseño_de_Interiores")} />
-                            <span>Diseño de Interiores</span>
-                        </label>
-
-                        <label className="p-2">
-                            <input type="checkbox" onChange={() => toggleFiltros("titulo", "Diseño_UX/UI")} />
-                            <span>Diseño UX/UI</span>
-                        </label>
+                        <input
+                            value={buscador}
+                            onChange={(e) => setBuscador(e.target.value)}
+                            placeholder="buscar por puesto..."
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 mb-2"
+                        />
+                        <Box className="flex flex-col p-4">
+                            <p className="">orden de las tarjetas </p>
+                                <select value={orden} onChange={(e) => setOrden(e.target.value)}>
+                                    <option value="">Sin orden</option>
+                                    <option value="az">A → Z</option>
+                                    <option value="za">Z → A</option>
+                                </select>
+                            <p>Filtrar remunerados o no remunerados</p>
+                            <select
+                                value={filtro.remuneracion ?? ""}
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    setFiltro({ ...filtro, remuneracion: val === "" ? null : val === "true" })
+                                }}
+                            >
+                                <option value="">Todos</option>
+                                <option value="true">Pagado</option>
+                                <option value="false">No pagado</option>
+                            </select>
+                        </Box>
+                        <p>filtrar por titulo</p>
+                        <Filtro
+                            opciones={ESPECIALIDADES}
+                            seleccionados={filtro.titulo}
+                            onToggle={toggleFiltros}
+                        />
                     </div>
 
                     <div className="p-4">
@@ -210,27 +147,38 @@ const Vacantes = () => {
                                     <p>No hay vacantes, Lamentamos su espera por pasantias</p>
                                 </div>
                             ) : (
-                                itemsEnPagina.map((v) => (
-                                    <div key={v.id} className="flex flex-row bg-gray-200 rounded justify-between items-center w-full h-24 px-2">
-                                        <h3>{v.titulo}</h3>
-                                        <p className="w-64 line-clamp-1">{v.descripcion}</p>
-                                        <Link to={`/vacantes/${v.id}`}>Ver mas</Link>
-                                    </div>
-                                ))
-                            )
-                            }
-                            <div className="flex gap-2 mt-4">
-                                {Array.from({ length: totalPages }, (_, i) => i + 1).map(num => (
-                                    <button
-                                        key={num}
-                                        onClick={() => setCurrentPage(num)}
-                                        className={`px-3 py-1 rounded ${currentPage === num ? "bg-blue-500 text-white" : "bg-gray-300"
-                                            }`}
-                                    >
-                                        {num}
-                                    </button>
-                                ))}
-                            </div>
+                                vacantesOrden.map((v) => {
+
+                                    const especialidad = ESPECIALIDADES.find(e => e.valor === v.titulo);
+                                    const color = especialidad?.color || "border-gray-300";
+                                    const bgColor = especialidad?.color.replace("border-", "bg-").replace("shadow-", "") || `bg-${color}-50`;
+
+                                    return (
+                                        <div
+                                            key={v.id}
+                                            className={`flex flex-row border-l-4 rounded-lg justify-between items-center w-full h-24 px-4 mb-2 shadow-sm transition-all duration-200 bg-gray-50 hover:brightness-95 ${color}`}
+                                        >
+                                            <div className="w-1/4">
+                                                <h3 className="font-bold">{v.puesto}</h3>
+                                                <p className="text-gray-500 text-sm">{v.titulo}</p>
+                                                <p className="text-xs mt-1">{v.remuneracion ? "✅ Remunerado" : "❌ No remunerado"}</p>
+                                            </div>
+                                            <p className="w-1/2 line-clamp-2 text-sm text-gray-600">{v.descripcion}</p>
+                                            <Link
+                                                className="text-blue-500 hover:text-blue-700 font-medium"
+                                                to={`/vacantes/${v.id}`}
+                                            >
+                                                Ver más
+                                            </Link>
+                                        </div>
+                                    )
+                                })
+                            )}
+                            <Paginacion
+                                totalPages={totalPages}
+                                currentPage={currentPage}
+                                onPageChange={setCurrentPage}
+                            />
                             {rol === 5 ? (
                                 <Button onClick={handleOpen}>Crear vacante</Button>
                             ) : (<div />)}
@@ -287,6 +235,26 @@ const Vacantes = () => {
                                             <MenuItem value="Diseño_de_Interiores">Diseño de Interiores</MenuItem>
                                             <MenuItem value="Diseño_UX/UI">Diseño UX/UI</MenuItem>
                                         </Select>
+
+                                        <p>Puesto</p>
+                                        <TextField
+                                            value={datos.puesto}
+                                            onChange={(e) => setDatos({ ...datos, puesto: e.target.value })} />
+                                        <p>Con o sin remuneracion?</p>
+                                        <Select
+                                            id="remuneracion"
+                                            name="remuneracion"
+                                            label="remuneracion"
+                                            className="w-64"
+                                            value={datos.remuneracion ?? ""}
+                                            onChange={(e) => setDatos({
+                                                ...datos,
+                                                remuneracion: e.target.value
+                                            })}
+                                        >
+                                            <MenuItem value={true}>Remunerado</MenuItem>
+                                            <MenuItem value={false}>NO Remunerado</MenuItem>
+                                        </Select>
                                     </div>
                                     <TextField
                                         id="descripcion"
@@ -308,7 +276,7 @@ const Vacantes = () => {
 
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

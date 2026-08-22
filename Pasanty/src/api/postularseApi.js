@@ -7,12 +7,11 @@ export const getPostulaciones = async () => {
 }
 
 export const getPostulacionById = async (id) => {
-    const postulacion = await instance.get(`/postulante/buscarPorId/${id}`)
+    const postulacion = await instance.get(`/postulantes/buscarPorId/${id}`)
     return (postulacion);
 }
 
 export const postPostularse = async (id) => {
-    console.log(id);
     const postulacion = await instance.post(`/postulantes/postularse/${id}`);
     return (postulacion);
 }
@@ -24,7 +23,6 @@ export const patchEstado = async (id, datos) => {
 
 export const getEstado = async () => {
     const resultado = await instance.get("/postulantes/verEstado");
-    console.log(resultado);
     return resultado;
 };
 

@@ -15,36 +15,23 @@ export const getPasanteById = async (id) => {
 //hacer despues
 export const postSubirCV = async (archivo) => {
     const formData = new FormData();
-    formData.append('cv', archivo)
+    formData.append('cv', archivo);
 
-    const token = localStorage.getItem("token");
-
-    try {
-        const res = await fetch(`${UrlApi}/subir-cv`, {
-            method: "POST",
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        });
-
-    } catch (error) {
-        return { error: error.message };
-    }
+    return await instance.post('/pasantes/subir-cv', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    });
 }
 
 //hacer despues
 export const getCV = async (id) => {
-    const blob = await instance.get(`/pasantes/cv/${id}`, {
-        responseType: 'blob'  // le decís a axios que espere bytes, no JSON
+    const res = await instance.get(`/pasantes/cv/${id}`, {  // le decís a axios que espere bytes, no JSON
     });
-    return URL.createObjectURL(blob);
+    return res.url;
 };
 
 //hacer despues
 export const getMyCV = async () => {
-    const blob = await instance.get('/pasantes/propio-cv', {
-        responseType: 'blob'
+    const res = await instance.get('/pasantes/propio-cv', {
     });
-    return URL.createObjectURL(blob);
+    return res.url;
 }
