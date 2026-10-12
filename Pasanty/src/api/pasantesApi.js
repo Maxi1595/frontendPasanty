@@ -22,14 +22,12 @@ export const postSubirCV = async (archivo) => {
     });
 }
 
-//hacer despues
 export const getCV = async (id) => {
-    const res = await instance.get(`/pasantes/cv/${id}`, {  // le decís a axios que espere bytes, no JSON
+    const res = await instance.get(`/pasantes/cv/${id}`, {
     });
     return res.url;
 };
 
-//hacer despues
 export const getMyCV = async () => {
     const res = await instance.get('/pasantes/propio-cv', {
     });

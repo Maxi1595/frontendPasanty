@@ -5,7 +5,7 @@ export default function LayoutMain({ children }) {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <Outlet />
+      <Outlet className="bg-stone-200"/>
     </div>
   )
 }

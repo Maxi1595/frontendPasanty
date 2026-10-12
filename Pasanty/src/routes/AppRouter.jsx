@@ -15,6 +15,7 @@ import PostulanteDetalles from "../pages/PostulanteDetalles";
 import Perfil from "../pages/Perfil";
 import Estado from "../pages/Estado";
 import EmpresaDetalles from "../pages/EmpresaDetalles";
+import Verificados from "../pages/Verificados";
 
 const AppRouter = () => {
     return (
@@ -39,6 +40,9 @@ const AppRouter = () => {
 
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
+                
+                <Route path="/verificar" element={<Verificados />} />
+                <Route path="/verificar/:email/:token" element={<Verificados />} />
 
                 {/*Rutas privadas para empresas */}
 

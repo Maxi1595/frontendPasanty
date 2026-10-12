@@ -30,7 +30,8 @@ instance.interceptors.response.use(
     },
     async (error) => {
         if (error.config.url !== "/auth/login" && error.config.url !== "/auth/refreshToken" && error.response) {
-            if (error.response.status === 401 && !error.config._retry) {
+            if (error.response.status === 401 || error.response.status === 500 && !error.config._retry) {
+                console.log("entro");
                 error.config._retry = true;
                 try {
 

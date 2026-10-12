@@ -26,8 +26,18 @@ export const getPerfilEmpresaByParams = async (id) => {
     const perfil = await instance.get(`/perfil/ver/empresa/${id}`)
     return perfil;
 }
- 
+
 export const putPerfilEmpresa = async (data) => {
     const perfil = await instance.put(`/perfil/cambiar/empresa`, data);
     return perfil;
+}
+
+export const putBannerEmpresa = async (banner) => {
+    const formData = new FormData();
+    formData.append('banner', banner);
+
+
+    return await instance.put('/perfil/cambiar/banner', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    });
 }

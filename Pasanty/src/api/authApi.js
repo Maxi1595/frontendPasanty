@@ -9,3 +9,7 @@ export const loginApi = async (logearse) => {
 export const registroApi = async (tipo, datos) => {
     return await instance.post(`/auth/registro/${tipo}`, datos);
 }
+
+export const getVerificar = async (email, token) => {
+    return await instance.get(`/verificar/${email}/${token}`)
+}

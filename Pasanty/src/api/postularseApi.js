@@ -17,7 +17,7 @@ export const postPostularse = async (id) => {
 }
 
 export const patchEstado = async (id, datos) => {
-    const postulacion = await instance.patch(`/postulantes/postularse/${id}`, datos);
+    const postulacion = await instance.patch(`/postulantes/cambiarEstado/${id}`, datos);
     return (postulacion);
 }
 

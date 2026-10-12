@@ -32,7 +32,7 @@ const Navbar = () => {
                     alt="Logo" />
                 <Link to="/" className="text-white text-4xl font-bold uppercase">PASANTY</Link>
             </div>
-            <div className="flex gap-40 text-white text-gl">
+            <div className="flex gap-40 text-white text-lg font-bold">
                 <a href="/marketplace">Pasantes</a>
                 {/* <div className="relative group">
                     <ul className="absolute left-0 hidden group-hover:block z-1 bg-green-600/50 text-black border border-green-800 rounded py-2 px-3">
@@ -76,7 +76,7 @@ const Navbar = () => {
                 </div>
             ) : usuario ? (
                 <div>
-                    <Link to="/perfil" className="text-white">{usuario?.user?.username}</Link>
+                    <Link to="/perfil" className="text-white text-lg">{usuario?.user?.username}</Link>
                     <Button onClick={handleSubmit}>Cerrar Sesion</Button>
                 </div>
             ) : null

@@ -7,6 +7,7 @@ import { ESTADOS_ACADEMICOS } from "../constants/EstadosAcademicos";
 import Filtro from "../components/Filtros"
 import Paginacion from "../components/Paginacion";
 import Avatar from "../components/Avatar";
+import Tag from "../components/Tag";
 
 const MarketPlace = () => {
 
@@ -49,6 +50,14 @@ const MarketPlace = () => {
 
     const totalPages = Math.ceil(pasantesOrden.length / itemsPerPage);
 
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+    const pasantesPagina = pasantesOrden.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
+
 
     useEffect(() => {
         getPasantes().then(req => {
@@ -64,14 +73,15 @@ const MarketPlace = () => {
         <>
             <div className="grid grid-rows-[auto_1fr] h-screen gap-4 p-4">
                 {/* FILA 1: Título */}
-                <div className="bg-gray-100 p-4 rounded shadow text-center text-2xl font-semibold">
-                    Busca a tu pasante
+                <div className="mb-6">
+                    <h1 className="text-3xl font-bold text-gray-900">Buscá a tu pasante</h1>
+                    <p className="text-gray-500 text-base mt-1">Filtrá por especialidad, año académico o habilidades y contactá directamente por mail.</p>
                 </div>
 
                 {/* FILA 2: Filtros + Cards */}
                 <div className="grid grid-cols-[25%_75%] gap-4">
                     {/* Filtros */}
-                    <div className="bg-gray-50 p-4 rounded shadow">
+                    <div className="bg-stone-50 p-4 rounded shadow">
                         <h2 className="text-lg font-semibold mb-2">Filtros</h2>
                         <input
                             value={buscador}
@@ -106,26 +116,41 @@ const MarketPlace = () => {
                     </div>
 
                     {/* Cards */}
-                    <div className="p-4 items-center justify-center">
-                        <div className="flex flex-wrap gap-4 justify-start">
+                    <div className="p-4 items-center justify-center w-full">
+                        <div className="flex flex-wrap gap-4 justify-start bg-stone-50">
                             <Box className="flex flex-wrap justify-center gap-6 p-2 w-[75%]">
                                 {pasantes === 0 ? (
                                     <div>
                                         <p>No se ha encontrado pasantes, disponibles</p>
                                     </div>
                                 ) : (
-                                    pasantesOrden.map((p) => {
+                                    pasantesPagina.map((p) => {
                                         const especialidad = ESPECIALIDADES.find(e => e.valor === p.especialidad);
                                         const color = especialidad?.color || "border-gray-300 shadow-gray-200";
 
+                                        const tags = p.perfilPasante?.tags
+                                            ? p.perfilPasante.tags.split(",").map(tag => tag.trim())
+                                            : [];
+                                        const tagsVisibles = tags.slice(0, 3);
+
                                         return (
-                                            <Card key={p.id} className={`flex flex-col text-center justify-center items-center gap-2 w-[30%] shadow-[-6px_4px_6px_-1px_rgba(0,0,0,0.1),_-2px_2px_4px_-1px_rgba(0,0,0,0.06)] border-l-4 ${color}`}>
-                                                <CardContent className="flex flex-col items-center w-full">
+                                            <Card key={p.id} className={`flex flex-col text-center justify-center items-center gap-2 w-[40%] h-50 shadow-[-6px_4px_6px_-1px_rgba(0,0,0,0.1),_-2px_2px_4px_-1px_rgba(0,0,0,0.06)] border-l-4 ${color}`}>
+                                                <CardContent className="flex flex-row items-center justify-around w-full">
                                                     <Avatar id={p.usuarioId} nombre={p.usuario.nombre} />
-                                                    <h1 className="mt-2">{p.usuario.nombre}</h1>
-                                                    <p className="pt-2 font-bold">{p.especialidad}</p>
+                                                    <div className="flex flex-col items-start w-1/2 ml-5">
+                                                        <h1 className="mt-2">{p.usuario.nombre}</h1>
+                                                        <p className="pt-2 font-bold">{p.especialidad.replace(/_/g, " ")}</p>
+                                                        <div className="flex flex-wrap gap-2 mt-2">
+                                                            {tagsVisibles.map((tag) => (
+                                                                <Tag key={tag} nombre={tag} />
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                    </div>
+                                                    {/* {p.perfilPasante.tags.slice(0, 3)} */}
                                                 </CardContent>
-                                                <CardActions>
+                                                <CardActions className="flex justify-end items-end w-full">
                                                     <Link className="text-blue-500" to={`/pasantes/${p.id}`}>Ver mas</Link>
                                                 </CardActions>
                                             </Card>

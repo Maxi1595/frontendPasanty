@@ -7,8 +7,16 @@ export const getVacante = async () => {
     return await instance.get("/vacante/buscar");
 }
 
-export const getVacanteById = async (id) => {
+export const getVacanteByParamsId = async (id) => {
     return await instance.get(`/vacante/buscar/${id}`)
+}
+
+export const getVacanteById = async () => {
+    return await instance.get(`/vacante/buscarPorId`)
+}
+
+export const getVacanteByIdUsuario = async (id) => {
+    return await instance.get(`/vacante/buscarPorIdUsuario/${id}`)
 }
 
 export const postVacante = async (datos) => {
