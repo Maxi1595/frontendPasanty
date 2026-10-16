@@ -31,14 +31,14 @@ const PerfilPasanteView = ({ pasante, perfil, usuarioId, esPropio = false, pasan
                         <div>
                             <h1 className="text-xl font-bold text-gray-900">{pasante?.usuario?.nombre}</h1>
                             <p className="text-sm text-gray-500">{pasante?.especialidad?.replace(/_/g, " ")}</p>
+                            {pasante?.estadoAcademico && (
+                                <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">
+                                    {pasante.estadoAcademico.replace(/_/g, " ")}
+                                </span>
+                            )}
 
                         </div>
                     </div>
-                    {pasante?.estadoAcademico && (
-                        <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">
-                            {pasante.estadoAcademico.replace(/_/g, " ")}
-                        </span>
-                    )}
                     <div className="text-base my-auto text-end">
                         <div className="flex flex-row text-end">
                             <h2 className="text-base font-semibold pr-3">Correo:</h2>
